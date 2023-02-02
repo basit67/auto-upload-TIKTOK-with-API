@@ -1,1 +1,1 @@
-this script is only use to upload all video on current directory 
+this script is only use to upload all video on current directory and we are not using any of your data
