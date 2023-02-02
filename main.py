@@ -2,13 +2,19 @@ import os
 import requests
 
 def main():
-        # Your TikTok API key
-    api_key = input("your_api_key_here: ")
+    # Your TikTok API key
+    api_key = input("Enter your API key: ")
     print(api_key)
-    correctsapi = input("is you API is correct??: ").upper()
+    correct_api = input("Is your API key correct? [Y/N]: ").upper()
+    # Your TikTok Client Secret
+    print("make sure to enter correct info")
+    client_secret = input("Enter your Client Secret: ")
+    # Your TikTok Client Key
+    client_key = input("Enter your Client Key: ")
     
-    if correctsapi == "YES" or correctsapi == "Y":
-        print("make sure you have all you video which will be uploaded in current directory")
+    if correct_api == "YES" or correct_api == "Y":
+        print("Make sure you have all the videos which will be uploaded in the current directory.")
+        
         # The endpoint for uploading videos
         upload_endpoint = "https://api.tiktok.com/v1/video/upload"
 
@@ -26,6 +32,8 @@ def main():
                 response = requests.post(upload_endpoint, headers={
                     "Authorization": "Bearer " + api_key,
                     "Content-Type": "video/mp4",
+                    "X-TikTok-Client-Secret": client_secret,
+                    "X-TikTok-Client-Key": client_key,
                     "X-TikTok-Video-Title": video_title
                 }, data=video_data)
 
@@ -35,16 +43,15 @@ def main():
                 else:
                     print("Successfully uploaded video:", filename)
     else:
-        print("make sure to enter correct API key and run this script again")
+        print("Make sure to enter the correct API key and run the script again.")
         quit
 
-print("privacy policy:\nthis script is only use to upload all video on current directory and we are not using any of your data")
-PPTAC = input("did you read and agree with privacy policy: ").upper()
-print("term and condition:\nby using this script you will agreed to upload all your video in current directory to tiktok")
-TAC = input("did you read and agree with term and condition: ").upper()
-if PPTAC == "YES" or PPTAC == "Y" and TAC == "YES" or TAC == "Y" :
+print("Privacy policy: This script is only used to upload all videos in the current directory and we are not using any of your data.")
+PPTAC = input("Have you read and agreed with the privacy policy? [Y/N]: ").upper()
+print("Terms and Conditions: By using this script, you agree to upload all your videos in the current directory to TikTok.")
+TAC = input("Have you read and agreed with the terms and conditions? [Y/N]: ").upper()
+if PPTAC == "YES" or PPTAC == "Y" and TAC == "YES" or TAC == "Y":
     main()
-
 else:
-    print("please read and agreed to our privacy policy, term and condition?")
+    print("Please read and agree to our privacy policy and terms and conditions.")
     quit
